@@ -4,29 +4,34 @@ Advanced Object-oriented Programming Technics - Adapter and Proxy
 Write a simple database of arrays Data. This database is visualized in the control (left panel) of the class JList (it needs an external data model derived from the class AbstractListModel).
 Complete the skeleton:
 
-Write a simple implementation of the data - RealData (eg. as int[] or ArrayList/LinkedList);
-Complete the Database class (don't forget about calling fireIntervalAdded and fireIntervalRemoved).
+* Write a simple implementation of the data - RealData (eg. as int[] or ArrayList/LinkedList);
+* Complete the Database class (don't forget about calling fireIntervalAdded and fireIntervalRemoved).
+
 Choosing an array on the list, the program should show it in the editable table on the right panel. To achieve it create an adapter implementing the interface type TableModel or (better) extending the class AbstractTableModel.
 
-It should present the array data in two columns: index and value;
-Methods: getValueAt, getRowCount, getColumnName, getColumnCount, implement also isCellEditable, setValueAt and getColumnClass - they will allow modification of values;
-Create an adapter object and put it in the control JTable in the marked place (in the source code);
-Change the array list. It should also change the data pointed in the adapter;
-Don't forget to call  fireTableStructureChanged method.
+* It should present the array data in two columns: index and value;
+* Methods: getValueAt, getRowCount, getColumnName, getColumnCount, implement also isCellEditable, setValueAt and getColumnClass - they will allow modification of values;
+* Create an adapter object and put it in the control JTable in the marked place (in the source code);
+* Change the array list. It should also change the data pointed in the adapter;
+* Don't forget to call  fireTableStructureChanged method.
+
 Add a virtual proxy to data realizing its lazy initialization:
 
-The database should not contain the real array but proxies to them;
-It is not necessary to create the array immediately - until the set method is called for the first time (first modification);
-It is not necessary to create the array to show it in the table  - it is empty so all its values are initialized to 0.
+* The database should not contain the real array but proxies to them;
+* It is not necessary to create the array immediately - until the set method is called for the first time (first modification);
+*It is not necessary to create the array to show it in the table  - it is empty so all its values are initialized to 0.
+
 Add a button copying the chosen array using the copy-on-write proxy.
 
-At the beginning it is a shallow copy - proxy to the original array;
-On the first modification of the "copy" a deep copy will be created and the proxy will switch to point to the brand new created copy;
-* in the above implementation only modification of the copy will cause creation of the real copy - change it to fire this mechanism also on modification of the original array - you will need a list of the created copies in every real array.
+* At the beginning it is a shallow copy - proxy to the original array;
+* On the first modification of the "copy" a deep copy will be created and the proxy will switch to point to the brand new created copy;
+
+In the above implementation only modification of the copy will cause creation of the real copy - change it to fire this mechanism also on modification of the original array - you will need a list of the created copies in every real array.
 
 Skeleton:
 
 // data in the database
+
 interface Data {
     public int get(int idx);
     public void set(int idx, int value);
@@ -34,11 +39,13 @@ interface Data {
 }
 
 // simple implementation - array
+
 class RealData implements Data {
     /* ... */
 }
 
 // database - collection of Data
+
 class Database extends AbstractListModel{
     private ArrayList<Data> ar = new ArrayList<Data>();
 
