@@ -31,21 +31,21 @@ In the above implementation only modification of the copy will cause creation of
 Skeleton:
 
 // data in the database
-
+```
 interface Data {
     public int get(int idx);
     public void set(int idx, int value);
     public int size();
 }
-
+```
 // simple implementation - array
-
+```
 class RealData implements Data {
     /* ... */
 }
-
+```
 // database - collection of Data
-
+```
 class Database extends AbstractListModel{
     private ArrayList<Data> ar = new ArrayList<Data>();
 
@@ -65,8 +65,8 @@ class Database extends AbstractListModel{
         /* ... */
     }
 }
-
-
+```
+```
 public class aoopt_adapter_proxy {
 
     public static void main(String[] args) {
@@ -137,3 +137,4 @@ public class aoopt_adapter_proxy {
         });
     }
 }
+```
